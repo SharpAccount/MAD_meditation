@@ -9,6 +9,9 @@ export const LoginPage = ({navigation}) => {
         "Alegreya Sans Regular": require("../../assets/fonts/AlegreyaSans Regular.ttf"),
         "Alegreya Sans Medium": require("../../assets/fonts/AlegreyaSans Medium.ttf")
     })
+    const submitData = () => {
+        navigation.navigate("Profile")
+    }
     return (
         <View style={{width:"100%", height:"100%", backgroundColor:"#253334", alignItems:"center"}}>
             <View style={{width: "80%"}}>
@@ -22,7 +25,7 @@ export const LoginPage = ({navigation}) => {
                 <View style={{marginTop:"45%", gap:30}}>
                     <TextInput style={[style.paragraph, style.input, {color: "#BEC2C2", fontFamily: "Alegreya Sans Regular", padding: 7}]} placeholder={"Email"} placeholderTextColor={"#BEC2C2"}/>
                     <TextInput style={[style.paragraph, style.input, {color: "#BEC2C2", fontFamily: "Alegreya Sans Regular", padding: 7}]} placeholder={"Пароль"} placeholderTextColor={"#BEC2C2"}/>
-                    <Pressable style={[style.button, {marginTop:"10%", marginBottom:"7%"}]}>
+                    <Pressable style={[style.button, {marginTop:"10%", marginBottom:"7%"}]} onPress={submitData}>
                         <Text style={style.buttonText}>Sign in</Text>
                     </Pressable>
                 </View>
@@ -37,7 +40,7 @@ export const LoginPage = ({navigation}) => {
     )
 }
 
-const style = StyleSheet.create({
+const style= StyleSheet.create({
     header: {
         color: "white",
         fontSize: 34,

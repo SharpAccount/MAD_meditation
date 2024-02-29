@@ -1,4 +1,4 @@
-import {Button, ImageBackground, Text, View, StyleSheet, TouchableOpacity, Pressable} from "react-native";
+import {ImageBackground, Text, View, StyleSheet, TouchableOpacity, Pressable} from "react-native";
 import {Logo} from "../component/logo";
 import {useFonts} from "expo-font";
 
@@ -12,7 +12,7 @@ const OnBoarding = ({navigation}) => {
     return (
         <ImageBackground
             source={require("../../assets/2752811 1.png")}
-            style={{height: "100%", alignItems: "center"}}>
+            style={{height: "100%", width: "100%", alignItems: "center"}}>
             <View style={{width:"90%", alignItems: "center"}}>
                 <View style={{marginTop: "50%"}}>
                     <Logo/>
