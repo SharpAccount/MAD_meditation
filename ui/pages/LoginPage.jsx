@@ -1,6 +1,6 @@
 import {View, Text, StyleSheet, TextInput, Pressable} from "react-native";
 import {useFonts} from "expo-font";
-import {Logo} from "../component/logo";
+import Logo from "../component/logo";
 
 export const LoginPage = ({navigation}) => {
     const [fontLoaded] = useFonts({
@@ -16,10 +16,9 @@ export const LoginPage = ({navigation}) => {
         <View style={{width:"100%", height:"100%", backgroundColor:"#253334", alignItems:"center"}}>
             <View style={{width: "80%"}}>
                 <View style={{gap:15, marginTop: "40%"}}>
-                    <Text style={style.header}>Logo is here</Text>
-                    {/*<View style={{width:10}}>*/}
-                    {/*    <Logo style={{width: 20, height: 20}}/>*/}
-                    {/*</View>*/}
+                    <View style={{width:10}}>
+                        <Logo width="43" height="49" color="#fff"/>
+                    </View>
                     <Text style={style.header}>Sign in</Text>
                 </View>
                 <View style={{marginTop:"45%", gap:30}}>

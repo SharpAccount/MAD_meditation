@@ -1,5 +1,5 @@
 import {ImageBackground, Text, View, StyleSheet, TouchableOpacity, Pressable} from "react-native";
-import {Logo} from "../component/logo";
+import Logo from "../component/logo";
 import {useFonts} from "expo-font";
 
 const OnBoarding = ({navigation}) => {
@@ -15,7 +15,7 @@ const OnBoarding = ({navigation}) => {
             style={{height: "100%", width: "100%", alignItems: "center"}}>
             <View style={{width:"90%", alignItems: "center"}}>
                 <View style={{marginTop: "50%"}}>
-                    <Logo/>
+                    <Logo width="191" height="199" color="#fff"/>
                 </View>
                 <View style={{alignItems: "center", width: "100%", marginTop:"7%", gap: 6}}>
                     <Text style={style.header}>ПРИВЕТ</Text>

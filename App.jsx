@@ -4,6 +4,7 @@ import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {LoginPage} from "./ui/pages/LoginPage";
 import RegisterPage from "./ui/pages/RegisterPage";
 import {ProfilePage} from "./ui/pages/ProfilePage";
+import Layout from "./ui/component/Layout";
 
 const Stack = createNativeStackNavigator();
 
