@@ -1,16 +1,16 @@
 import {View, Text, StyleSheet, TextInput, Pressable} from "react-native";
 import {useFonts} from "expo-font";
-import Logo from "../component/logo";
+import Logo from "../components/logo";
 
 export const LoginPage = ({navigation}) => {
     const [fontLoaded] = useFonts({
-        "Alegreya Regular": require("../../assets/fonts/Alegreya Regular.ttf"),
-        "Alegreya Medium": require("../../assets/fonts/Alegreya Medium.ttf"),
-        "Alegreya Sans Regular": require("../../assets/fonts/AlegreyaSans Regular.ttf"),
-        "Alegreya Sans Medium": require("../../assets/fonts/AlegreyaSans Medium.ttf")
+        "Alegreya Regular": require("../../../assets/fonts/Alegreya Regular.ttf"),
+        "Alegreya Medium": require("../../../assets/fonts/Alegreya Medium.ttf"),
+        "Alegreya Sans Regular": require("../../../assets/fonts/AlegreyaSans Regular.ttf"),
+        "Alegreya Sans Medium": require("../../../assets/fonts/AlegreyaSans Medium.ttf")
     })
     const submitData = () => {
-        navigation.navigate("Profile")
+        navigation.navigate("Main");
     }
     return (
         <View style={{width:"100%", height:"100%", backgroundColor:"#253334", alignItems:"center"}}>
