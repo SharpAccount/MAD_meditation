@@ -11,7 +11,7 @@ const OnBoarding = ({navigation}) => {
     })
     return (
         <ImageBackground
-            source={require("../../../assets/2752811 1.png")}
+            source={require("../../../assets/BackGround.png")}
             style={{height: "100%", width: "100%", alignItems: "center"}}>
             <View style={{width:"90%", alignItems: "center"}}>
                 <View style={{marginTop: "50%"}}>

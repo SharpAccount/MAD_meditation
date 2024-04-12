@@ -11,7 +11,6 @@ export const ProfilePage = () => {
         <View style={{width:"100%", height:"100%", paddingTop: "15%", backgroundColor:"#253334", alignItems:"center"}}>
             <View style={{width: "90%"}}>
                 <Header/>
-                <Footer/>
             </View>
         </View>
     )

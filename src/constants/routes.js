@@ -1,9 +1,7 @@
 import OnBoarding from "../ui/pages/OnBoarding";
 import {LoginPage} from "../ui/pages/LoginPage";
 import RegisterPage from "../ui/pages/RegisterPage";
-import {ProfilePage} from "../ui/pages/ProfilePage";
-import {Main} from "../ui/pages/Main";
-import Footer from "../ui/components/HOCs/Footer";
+import { Router } from "../ui/pages/Router";
 
 export const routes = [
     {
@@ -19,15 +17,7 @@ export const routes = [
         page: RegisterPage
     },
     {
-        name:"Profile",
-        page: ProfilePage
-    },
-    {
-        name:"Main",
-        page: Main
-    },
-    {
-        name: "Footer",
-        page: Footer,
+        name: "Router",
+        page: Router,
     }
 ]
