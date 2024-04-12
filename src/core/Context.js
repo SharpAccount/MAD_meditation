@@ -48,7 +48,7 @@ export const ContextProvider = ({children}) => {
     
     async function authorise(email, pass) {
         try {
-            const response = await fetch("http://mskko2021.mad.hakta.pro", {
+            const response = await fetch("http://mskko2021.mad.hakta.pro/api/user/login", {
                 method: "POST",
                 headers: {
                     "email": email,

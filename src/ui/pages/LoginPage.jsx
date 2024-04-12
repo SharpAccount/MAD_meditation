@@ -37,7 +37,7 @@ export const LoginPage = ({navigation}) => {
             setPassStatus(style.inputError);
             return;
         }
-        if (!(authorise)) {
+        if (!(authorise(email, password))) {
             setEmailStatus(style.inputError);
             setPassStatus(style.inputError);
         }
