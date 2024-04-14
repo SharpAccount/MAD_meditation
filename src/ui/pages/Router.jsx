@@ -3,8 +3,8 @@ import {ProfilePage} from "./ProfilePage";
 import * as React from 'react';
 import Logo from "../components/logo";
 import ProfileIcon from "../components/ProfileIcon";
-import RegisterPage from "./RegisterPage";
 import Sound from "../components/Sound";
+import {ListeningPage} from "./ListeningPage";
 
 const {createBottomTabNavigator} = require("@react-navigation/bottom-tabs");
 
@@ -16,7 +16,7 @@ export const Router = () => {
         <Tab.Navigator
             initialRouteName="Main"
             labeled = {false}
-            screenOptions={{headerShown: false, tabBarStyle: {backgroundColor: "#253334"}}}>
+            screenOptions={{headerShown: false, tabBarStyle: {backgroundColor: "#253334", height:"10%", borderTopWidth: 0}}}>
 
             <Tab.Screen name="Main" component={Main} options={{
                 tabBarLabel: () => null,
@@ -26,7 +26,7 @@ export const Router = () => {
                         : <Logo width="20" height="20" color="#92999a"/>
                 )
             }} />
-            <Tab.Screen name="Listen" component={RegisterPage} options={{
+            <Tab.Screen name="Listen" component={ListeningPage} options={{
                 tabBarLabel: () => null,
                 tabBarIcon: ({focused}) => (
                     focused
