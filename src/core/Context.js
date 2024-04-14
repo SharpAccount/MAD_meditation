@@ -10,6 +10,9 @@ export const ContextProvider = ({children}) => {
     const user = {
         email: "",
         login: "",
+        name: "",
+        id: "",
+        avatar: ""
     }
 
     async function getFeelings() {
@@ -51,15 +54,20 @@ export const ContextProvider = ({children}) => {
             const response = await fetch("http://mskko2021.mad.hakta.pro/api/user/login", {
                 method: "POST",
                 headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
                     "email": email,
                     "password": pass
-                }
+                })
             })
             const result = await response.json();
-            console.log(result)
+            if (result.error) {
+                throw new Error("Invalid login or password");
+            }
             return true
         } catch(err) {
-            console.error("Login error");
+            console.error(err);
             return false
         }
     }

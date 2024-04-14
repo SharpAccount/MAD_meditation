@@ -2,15 +2,14 @@ import {View, Text, StyleSheet, TextInput, Pressable} from "react-native";
 import {useFonts} from "expo-font";
 import Logo from "../components/logo";
 import {useContext, useEffect, useState} from "react";
-import {validate} from "@babel/core/lib/config/validation/options";
 import {Context} from "../../core/Context";
 
 export const LoginPage = ({navigation}) => {
     const [fontLoaded] = useFonts({
-        "Alegreya Regular": require("../../../assets/fonts/Alegreya Regular.ttf"),
         "Alegreya Medium": require("../../../assets/fonts/Alegreya Medium.ttf"),
-        "Alegreya Sans Regular": require("../../../assets/fonts/AlegreyaSans Regular.ttf"),
-        "Alegreya Sans Medium": require("../../../assets/fonts/AlegreyaSans Medium.ttf")
+        "Alegreya Regular": require("../../../assets/fonts/Alegreya Regular.ttf"),
+        "Alegreya Sans Medium": require("../../../assets/fonts/AlegreyaSans Medium.ttf"),
+        "Alegreya Sans Regular": require("../../../assets/fonts/AlegreyaSans Regular.ttf")
     })
 
     const {authorise} = useContext(Context);
@@ -28,18 +27,19 @@ export const LoginPage = ({navigation}) => {
         setPassStatus(style.input);
     }, [email, password]);
 
-    const submitData = () => {
+    const submitData = async () => {
         if (!(isEmailValid(email))) {
             setEmailStatus(style.inputError);
             return;
-        }
-        if (!(isPassValid(password))) {
+        } else if (!(isPassValid(password))) {
             setPassStatus(style.inputError);
             return;
         }
-        if (!(authorise(email, password))) {
+        // const isLoginSuccessful = await authorise(email, password)
+        else if (!(await authorise(email, password))) {
             setEmailStatus(style.inputError);
             setPassStatus(style.inputError);
+            return;
         }
         navigation.navigate("Router");
     }
