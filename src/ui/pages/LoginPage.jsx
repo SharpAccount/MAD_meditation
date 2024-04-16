@@ -1,10 +1,14 @@
-import {View, Text, StyleSheet, TextInput, Pressable} from "react-native";
+import {View, Text, StyleSheet, TextInput, Pressable, KeyboardAvoidingView, Dimensions} from "react-native";
 import {useFonts} from "expo-font";
 import Logo from "../components/logo";
 import {useContext, useEffect, useState} from "react";
 import {Context} from "../../core/Context";
+import {Leaves} from "../components/Leaves";
 
 export const LoginPage = ({navigation}) => {
+
+    const windowHeight = Dimensions.get("window").height;
+
     const [fontLoaded] = useFonts({
         "Alegreya Medium": require("../../../assets/fonts/Alegreya Medium.ttf"),
         "Alegreya Regular": require("../../../assets/fonts/Alegreya Regular.ttf"),
@@ -12,7 +16,7 @@ export const LoginPage = ({navigation}) => {
         "Alegreya Sans Regular": require("../../../assets/fonts/AlegreyaSans Regular.ttf")
     })
 
-    const {authorise} = useContext(Context);
+    const {authorise, user} = useContext(Context);
 
     const styles = [style.paragraph, style.input, {color: "#BEC2C2", fontFamily: "Alegreya Sans Regular", padding: 7}];
 
@@ -54,29 +58,34 @@ export const LoginPage = ({navigation}) => {
     }
 
     return (
-        <View style={{width:"100%", height:"100%", backgroundColor:"#253334", alignItems:"center"}}>
-            <View style={{width: "80%"}}>
-                <View style={{gap:15, marginTop: "40%"}}>
-                    <View style={{width:10}}>
-                        <Logo width="43" height="49" color="#fff"/>
+        <KeyboardAvoidingView style={{flex: 1}} behavior={"padding"}>
+            <View style={{width:"100%", height: windowHeight, backgroundColor:"#253334", alignItems:"center"}}>
+                <View style={{width: "80%"}}>
+                    <View style={{gap:15, marginTop: "40%"}}>
+                        <View style={{width:10}}>
+                            <Logo width="43" height="49" color="#fff"/>
+                        </View>
+                        <Text style={style.header}>Sign in</Text>
                     </View>
-                    <Text style={style.header}>Sign in</Text>
+                    <View style={{marginTop:"45%", gap:30}}>
+                        <TextInput style={[style.paragraph, emailValidStatus]} value={email} onChangeText={(text) => setEmail(text)} placeholder={"Email"} placeholderTextColor={"#BEC2C2"}/>
+                        <TextInput style={[style.paragraph, passValidStatus]} value={password} onChangeText={(text) => setPass(text)} secureTextEntry={true} placeholder={"Пароль"} placeholderTextColor={"#BEC2C2"}/>
+                        <Pressable style={[style.button, {marginTop:"10%", marginBottom:"7%"}]} onPress={submitData}>
+                            <Text style={style.buttonText}>Sign in</Text>
+                        </Pressable>
+                    </View>
+                    <View>
+                        <Text style={[style.paragraph, {color:"white"}]}>Register</Text>
+                        <Pressable style={[style.button, {marginTop: "7%"}]} onPress={()=> navigation.navigate("Register")}>
+                            <Text style={style.buttonText}>Профиль</Text>
+                        </Pressable>
+                    </View>
                 </View>
-                <View style={{marginTop:"45%", gap:30}}>
-                    <TextInput style={[style.paragraph, emailValidStatus]} value={email} onChangeText={(text) => setEmail(text)} placeholder={"Email"} placeholderTextColor={"#BEC2C2"}/>
-                    <TextInput style={[style.paragraph, passValidStatus]} value={password} onChangeText={(text) => setPass(text)} secureTextEntry={true} placeholder={"Пароль"} placeholderTextColor={"#BEC2C2"}/>
-                    <Pressable style={[style.button, {marginTop:"10%", marginBottom:"7%"}]} onPress={submitData}>
-                        <Text style={style.buttonText}>Sign in</Text>
-                    </Pressable>
-                </View>
-                <View>
-                    <Text style={[style.paragraph, {color:"white"}]}>Register</Text>
-                    <Pressable style={[style.button, {marginTop: "7%"}]} onPress={()=> navigation.navigate("Register")}>
-                        <Text style={style.buttonText}>Профиль</Text>
-                    </Pressable>
+                <View style={{zIndex: 2, position: "absolute", bottom: 0}}>
+                    <Leaves/>
                 </View>
             </View>
-        </View>
+        </KeyboardAvoidingView>
     )
 }
 

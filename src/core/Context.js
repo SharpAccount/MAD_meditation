@@ -9,7 +9,6 @@ export const ContextProvider = ({children}) => {
 
     const user = {
         email: "",
-        login: "",
         name: "",
         id: "",
         avatar: ""
@@ -65,11 +64,21 @@ export const ContextProvider = ({children}) => {
             if (result.error) {
                 throw new Error("Invalid login or password");
             }
+            console.log(result)
+            setUserInfo(result);
             return true
         } catch(err) {
             console.error(err);
             return false
         }
+    }
+
+    function setUserInfo(info)
+    {
+        user.id = info.id;
+        user.name = info.nickName;
+        user.email = info.email;
+        user.avatar = info.avatar;
     }
 
     const values = {
