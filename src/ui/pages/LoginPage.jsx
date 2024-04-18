@@ -45,6 +45,7 @@ export const LoginPage = ({navigation}) => {
             setPassStatus(style.inputError);
             return;
         }
+        console.log(user);
         navigation.navigate("Router");
     }
 

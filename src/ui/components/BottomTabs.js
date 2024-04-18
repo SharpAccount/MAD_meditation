@@ -1,22 +1,24 @@
-import {Main} from "./Main";
-import {ProfilePage} from "./ProfilePage";
 import * as React from 'react';
-import Logo from "../components/logo";
+import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import {Main} from "../pages/Main";
+import {ProfilePage} from "../pages/ProfilePage";
+import {ListeningPage} from "../pages/ListeningPage";
 import ProfileIcon from "../components/ProfileIcon";
+import Logo from "../components/logo";
 import Sound from "../components/Sound";
-import {ListeningPage} from "./ListeningPage";
-
-const {createBottomTabNavigator} = require("@react-navigation/bottom-tabs");
-
 
 const Tab = createBottomTabNavigator();
-
-export const Router = () => {
+const BottomTabs = () => {
     return (
         <Tab.Navigator
-            initialRouteName="Main"
+            initialRouteName="Profile"
             labeled = {false}
-            screenOptions={{headerShown: false, tabBarStyle: {backgroundColor: "#253334", height:"10%", borderTopWidth: 0}}}>
+            screenOptions={
+            {
+                headerShown: false,
+                tabBarStyle: {backgroundColor: "#253334", height:"10%", borderTopWidth: 0},
+            }
+        }>
 
             <Tab.Screen name="Main" component={Main} options={{
                 tabBarLabel: () => null,
@@ -38,11 +40,13 @@ export const Router = () => {
                 tabBarLabel: () => null,
                 tabBarIcon: ({focused}) => (
                     focused
-                    ? <ProfileIcon width="30" height="30" color="#fff"/>
-                    : <ProfileIcon width="20" height="20" color="#92999a"/>
+                        ? <ProfileIcon width="30" height="30" color="#fff"/>
+                        : <ProfileIcon width="20" height="20" color="#92999a"/>
                 )
             }} />
 
         </Tab.Navigator>
     )
-}
+};
+
+export default BottomTabs;

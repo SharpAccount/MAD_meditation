@@ -1,5 +1,7 @@
 import {useFonts} from "expo-font";
 import {View, Text} from "react-native";
+import {useContext} from "react";
+import {Context} from "../../core/Context";
 
 export const ListeningPage = () => {
 

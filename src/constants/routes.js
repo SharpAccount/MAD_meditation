@@ -1,7 +1,7 @@
 import OnBoarding from "../ui/pages/OnBoarding";
 import {LoginPage} from "../ui/pages/LoginPage";
 import RegisterPage from "../ui/pages/RegisterPage";
-import { Router } from "../ui/pages/Router";
+import TopNBottomTabs from "../ui/components/TopNBottomTabs";
 
 export const routes = [
     {
@@ -18,6 +18,6 @@ export const routes = [
     },
     {
         name: "Router",
-        page: Router,
+        page: TopNBottomTabs,
     }
 ]

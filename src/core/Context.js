@@ -7,12 +7,12 @@ export const ContextProvider = ({children}) => {
     const [feelings, setFeelings] = useState([]);
     const [quotes, setQuotes] = useState([]);
 
-    const user = {
+    const [user, setUser] = useState({
         email: "",
         name: "",
         id: "",
         avatar: ""
-    }
+    })
 
     async function getFeelings() {
         try {
@@ -61,10 +61,15 @@ export const ContextProvider = ({children}) => {
                 })
             })
             const result = await response.json();
+            setUser({
+                email: result.email,
+                name: result.nickName,
+                id: result.id,
+                avatar: result.avatar
+            })
             if (result.error) {
                 throw new Error("Invalid login or password");
             }
-            console.log(result)
             setUserInfo(result);
             return true
         } catch(err) {
@@ -87,6 +92,7 @@ export const ContextProvider = ({children}) => {
         quotes,
         getQuotes,
         authorise,
+        user
     }
 
     return (
