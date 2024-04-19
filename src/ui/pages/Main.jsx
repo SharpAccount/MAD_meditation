@@ -1,6 +1,4 @@
-import {ScrollView, View, Text, Image, StyleSheet, Pressable} from "react-native";
-import Header from "../components/HOCs/Header";
-import Footer from "../components/HOCs/Footer";
+import {View, Text} from "react-native";
 import {useContext, useEffect} from "react";
 import {Context} from "../../core/Context";
 import {useFonts} from "expo-font";
@@ -25,7 +23,6 @@ export const Main = () => {
     return (
         <View style={{width:"100%", height:"100%", paddingTop: "5%", backgroundColor:"#253334", alignItems:"center"}}>
             <View style={{width: "88%"}}>
-                {/*<Header/>*/}
                 <View style={{marginTop: "8%"}}>
                     <Text style={{fontFamily: "Alegreya Medium", fontSize: 30, color: "#fff"}}>С возвращением, user!</Text>
                     <Text style={{fontFamily: "Alegreya Sans Regular", fontSize: 22, color: "#7C9A92"}}>Каким ты себя ощущаешь сегодня?</Text>

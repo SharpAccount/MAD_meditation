@@ -4,6 +4,7 @@ import Header from "../components/HOCs/Header";
 import Footer from "../components/HOCs/Footer";
 import {useContext} from "react";
 import {Context} from "../../core/Context";
+import ProfileInfo from "../components/ProfileInfo";
 
 export const ProfilePage = () => {
 
@@ -13,10 +14,9 @@ export const ProfilePage = () => {
         "Alegreya Sans Medium": require("../../../assets/fonts/AlegreyaSans Medium.ttf")
     })
     return (
-        <View style={{width:"100%", height:"100%", paddingTop: "15%", backgroundColor:"#253334", alignItems:"center"}}>
-            <View style={{width: "90%"}}>
-                {/*<Header/>*/}
-                <Image source={{uri: user.avatar}} style={{objectFit: "cover", height: 150, width: 150, borderRadius: 75, marginTop: 7}}></Image>
+        <View style={{width:"100%", height:"100%", backgroundColor:"#253334", alignItems:"center"}}>
+            <View style={{width: "90%", alignItems: "center"}}>
+                <ProfileInfo/>
             </View>
         </View>
     )
