@@ -6,6 +6,7 @@ import {Main} from "../pages/Main";
 import Logo from "./logo";
 import Sound from "./Sound";
 import {useFonts} from "expo-font";
+import {StyleSheet} from "react-native";
 
 const TopTab = createMaterialTopTabNavigator();
 const TopNBottomTabs = () => {
@@ -16,7 +17,7 @@ const TopNBottomTabs = () => {
 
     return (
         <TopTab.Navigator
-            initialRouteName="Main"
+            initialRouteName="exit"
         screenOptions={
             {
                 tabBarStyle: {backgroundColor: "#253334", height:"13%", justifyContent: "flex-end"},
@@ -24,6 +25,8 @@ const TopNBottomTabs = () => {
                 tabBarActiveTintColor: "#fff",
                 tabBarInactiveTintColor: "#fff",
                 swipeEnabled: false,
+                tabBarPressColor: "#253334",
+                tabBarPressOpacity: 1, // tabBarPressColor but for ios
             }
         }>
             <TopTab.Screen name="Menu" component={Sound} options={{
@@ -39,9 +42,7 @@ const TopNBottomTabs = () => {
                 tabBarLabel: () => null,
                 tabBarIcon: () => <Logo height="49" width="45" color="#fff"/>,
             }}/>
-            <TopTab.Screen name="Main" component={BottomTabs} options={{
-                tabBarLabel: "exit",
-            }}/>
+            <TopTab.Screen name="exit" component={BottomTabs}/>
 
 
         </TopTab.Navigator>
