@@ -5,14 +5,14 @@ import Footer from "../components/HOCs/Footer";
 import {useContext} from "react";
 import {Context} from "../../core/Context";
 import ProfileInfo from "../components/ProfileInfo";
+import {useRoute} from "@react-navigation/native";
 
 export const ProfilePage = () => {
-
-    const {user} = useContext(Context);
 
     const [fontLoaded] = useFonts({
         "Alegreya Sans Medium": require("../../../assets/fonts/AlegreyaSans Medium.ttf")
     })
+
     return (
         <View style={{width:"100%", height:"100%", backgroundColor:"#253334", alignItems:"center"}}>
             <View style={{width: "90%", alignItems: "center"}}>

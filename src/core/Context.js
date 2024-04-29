@@ -1,11 +1,15 @@
 import {createContext, useState} from "react";
+import {useRoute} from "@react-navigation/native";
 
 export const Context = createContext({});
 
 export const ContextProvider = ({children}) => {
 
+    const URL = "http://mskko2021.mad.hakta.pro/api/"
+
     const [feelings, setFeelings] = useState([]);
     const [quotes, setQuotes] = useState([]);
+    const [isProfile, changeProfileState] = useState(true);
 
     const [user, setUser] = useState({
         email: "",
@@ -16,7 +20,7 @@ export const ContextProvider = ({children}) => {
 
     async function getFeelings() {
         try {
-            const response = await fetch("http://mskko2021.mad.hakta.pro/api/feelings",
+            const response = await fetch(URL + "feelings",
                 {
                     method: "GET",
                     headers: {
@@ -33,7 +37,7 @@ export const ContextProvider = ({children}) => {
 
     async function getQuotes() {
         try {
-            const response = await fetch("http://mskko2021.mad.hakta.pro/api/quotes",
+            const response = await fetch(URL + "quotes",
                 {
                     method: "GET",
                     headers: {
@@ -50,7 +54,7 @@ export const ContextProvider = ({children}) => {
     
     async function authorise(email, pass) {
         try {
-            const response = await fetch("http://mskko2021.mad.hakta.pro/api/user/login", {
+            const response = await fetch(URL + "user/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -92,7 +96,9 @@ export const ContextProvider = ({children}) => {
         quotes,
         getQuotes,
         authorise,
-        user
+        user,
+        isProfile,
+        changeProfileState
     }
 
     return (

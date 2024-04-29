@@ -17,7 +17,7 @@ const ProfileInfo = () => {
     return (
         <View style={{marginTop: "5%"}}>
             <Image source={{uri: user.avatar}} style={{objectFit: "cover", height: 150, width: 150, borderRadius: 75, marginTop: 7}}></Image>
-            <Text style={{fontFamily: "Alegreya Medium", fontSize: 35, color: "#fff"}}>{user.name}</Text>
+            <Text style={{fontFamily: "Alegreya Medium", fontSize: 35, color: "#fff", textAlign: "center"}}>{user.name}</Text>
         </View>
     );
 };

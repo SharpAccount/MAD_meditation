@@ -7,7 +7,7 @@ const Quotes = () => {
     const {quotes} = useContext(Context);
 
     return (
-        <ScrollView style={{marginTop: "8%", height: "54%"}}>
+        <ScrollView style={{marginTop: "8%", height: "59%"}}>
             {quotes.map((el, idx) => (
                 <View key={idx} style={{backgroundColor: "#F7F3F0", display: "flex", flexDirection: "row", paddingHorizontal: 30, paddingVertical: 22, borderRadius: 20, marginBottom: 26}}>
                     <View style={{flex:4}}>
