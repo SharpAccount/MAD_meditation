@@ -77,8 +77,11 @@ export const LoginPage = ({navigation}) => {
                     </View>
                     <View>
                         <Text style={[style.paragraph, {color:"white"}]}>Register</Text>
-                        <Pressable style={[style.button, {marginTop: "7%"}]} onPress={()=> navigation.navigate("Register")}>
+                        <View style={[style.button, {marginTop: "7%"}]}>
                             <Text style={style.buttonText}>Профиль</Text>
+                        </View>
+                        <Pressable style={{zIndex: 3, backgroundColor: "#fff", opacity: 0, padding: 14, paddingRight: "15%", paddingLeft: "15%", borderRadius: 10, marginTop: "-19%"}} onPress={()=> navigation.navigate("Register")}>
+                            <Text style={style.buttonText}>Настоящая конпка</Text>
                         </Pressable>
                     </View>
                 </View>

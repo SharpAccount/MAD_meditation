@@ -7,7 +7,6 @@ import {useFonts} from "expo-font";
 import {Image, Text, View} from "react-native";
 import {MenuPage} from "../pages/MenuPage";
 import {Plug} from "../pages/Plug";
-import {useRoute} from "@react-navigation/native";
 import {Context} from "../../core/Context";
 
 const TopTab = createMaterialTopTabNavigator();
