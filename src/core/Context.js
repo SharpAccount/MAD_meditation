@@ -1,5 +1,5 @@
 import {createContext, useState} from "react";
-import {useRoute} from "@react-navigation/native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const Context = createContext({});
 
@@ -64,17 +64,22 @@ export const ContextProvider = ({children}) => {
                     "password": pass
                 })
             })
+
             const result = await response.json();
-            setUser({
+
+            await AsyncStorage.setItem("userInfo", JSON.stringify({
                 email: result.email,
                 name: result.nickName,
                 id: result.id,
                 avatar: result.avatar
-            })
+            }))
+
+            const userInfo = await AsyncStorage.getItem("userInfo");
+            setUser(JSON.parse(userInfo));
+
             if (result.error) {
                 throw new Error("Invalid login or password");
             }
-            setUserInfo(result);
             return true
         } catch(err) {
             console.error(err);
@@ -82,13 +87,22 @@ export const ContextProvider = ({children}) => {
         }
     }
 
-    function setUserInfo(info)
-    {
-        user.id = info.id;
-        user.name = info.nickName;
-        user.email = info.email;
-        user.avatar = info.avatar;
+    async function exit() {
+        await AsyncStorage.setItem("userInfo", JSON.stringify({
+            email: "",
+            name: "",
+            id: "",
+            avatar: ""
+        }))
+        setUser({
+            email: "",
+            name: "",
+            id: "",
+            avatar: ""
+        })
     }
+
+
 
     const values = {
         getFeelings,
@@ -98,7 +112,8 @@ export const ContextProvider = ({children}) => {
         authorise,
         user,
         isProfile,
-        changeProfileState
+        changeProfileState,
+        exit
     }
 
     return (

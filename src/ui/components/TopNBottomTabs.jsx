@@ -1,22 +1,22 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import BottomTabs from "./BottomTabs";
-import {SideBarButton} from "./sideBarButton";
+import { SideBarButton } from "./sideBarButton";
 import Logo from "./logo";
-import {useFonts} from "expo-font";
-import {Image, Text, View} from "react-native";
-import {MenuPage} from "../pages/MenuPage";
-import {Plug} from "../pages/Plug";
-import {Context} from "../../core/Context";
+import { useFonts } from "expo-font";
+import { Image, Text, View } from "react-native";
+import { MenuPage } from "../pages/MenuPage";
+import { Plug } from "../pages/Plug";
+import { Context } from "../../core/Context";
 
 const TopTab = createMaterialTopTabNavigator();
-const TopNBottomTabs = () => {
+const TopNBottomTabs = ({navigation}) => {
 
     const [fontLoaded] = useFonts({
         "Alegreya Sans Medium": require("../../../assets/fonts/AlegreyaSans Medium.ttf")
     })
 
-    const {isProfile, changeProfileState, user} = useContext(Context);
+    const {isProfile, changeProfileState, user, exit} = useContext(Context);
 
     return (
         <TopTab.Navigator
@@ -66,13 +66,14 @@ const TopNBottomTabs = () => {
                 )
             }}
             listeners={{
-                tabPress: () => (
-                    isProfile
-                    && console.log("done") // make exit func here...
-                )
+                tabPress: () => {
+                    changeProfileState(true);
+                    if (isProfile) {
+                        exit();
+                        navigation.navigate("Login");
+                    }
+                }
             }}/>
-
-
         </TopTab.Navigator>
     );
 };

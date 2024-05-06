@@ -1,9 +1,9 @@
-import {View, Text, StyleSheet, TextInput, Pressable, KeyboardAvoidingView, Dimensions} from "react-native";
-import {useFonts} from "expo-font";
+import { View, Text, StyleSheet, TextInput, Pressable, KeyboardAvoidingView, Dimensions } from "react-native";
+import { useFonts } from "expo-font";
 import Logo from "../components/logo";
-import {useContext, useEffect, useState} from "react";
-import {Context} from "../../core/Context";
-import {Leaves} from "../components/Leaves";
+import { useContext, useEffect, useState } from "react";
+import { Context } from "../../core/Context";
+import { Leaves } from "../components/Leaves";
 
 export const LoginPage = ({navigation}) => {
 
@@ -17,6 +17,7 @@ export const LoginPage = ({navigation}) => {
     })
 
     const {authorise, user} = useContext(Context);
+    console.log(user); // i must delete this...
 
     const styles = [style.paragraph, style.input, {color: "#BEC2C2", fontFamily: "Alegreya Sans Regular", padding: 7}];
 
@@ -39,13 +40,12 @@ export const LoginPage = ({navigation}) => {
             setPassStatus(style.inputError);
             return;
         }
-        // const isLoginSuccessful = await authorise(email, password)
         else if (!(await authorise(email, password))) {
             setEmailStatus(style.inputError);
             setPassStatus(style.inputError);
             return;
         }
-        console.log(user);
+        setPass("");
         navigation.navigate("Router");
     }
 

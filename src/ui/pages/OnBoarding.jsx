@@ -9,6 +9,7 @@ const OnBoarding = ({navigation}) => {
         "Alegreya Sans Medium": require("../../../assets/fonts/AlegreyaSans Medium.ttf"),
         "Alegreya Sans Regular": require("../../../assets/fonts/AlegreyaSans Regular.ttf")
     })
+
     return (
         <ImageBackground
             source={require("../../../assets/BackGround.png")}

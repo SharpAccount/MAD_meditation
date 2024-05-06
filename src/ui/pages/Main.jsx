@@ -4,7 +4,6 @@ import {Context} from "../../core/Context";
 import {useFonts} from "expo-font";
 import Feelings from "../components/Feelings";
 import Quotes from "../components/Quotes";
-import {useRoute} from "@react-navigation/native";
 
 export const Main = () => {
 
@@ -14,10 +13,9 @@ export const Main = () => {
         "Alegreya Sans Regular": require("../../../assets/fonts/AlegreyaSans Regular.ttf"),
         "Alegreya Sans Medium": require("../../../assets/fonts/AlegreyaSans Medium.ttf")
     })
-    const {feelings, getFeelings, quotes, getQuotes, user} = useContext(Context)
+    const { getFeelings, getQuotes, user } = useContext(Context)
 
-
-    useEffect(()=> {
+    useEffect(async()=> {
         getFeelings();
         getQuotes();
     }, [])
