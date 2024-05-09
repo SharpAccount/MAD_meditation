@@ -1,6 +1,9 @@
 import {ImageBackground, Text, View, StyleSheet, TouchableOpacity, Pressable} from "react-native";
 import Logo from "../components/logo";
 import {useFonts} from "expo-font";
+import {useContext, useEffect} from "react";
+import {Context} from "../../core/Context";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const OnBoarding = ({navigation}) => {
     const [fontLoaded] = useFonts({
@@ -9,6 +12,32 @@ const OnBoarding = ({navigation}) => {
         "Alegreya Sans Medium": require("../../../assets/fonts/AlegreyaSans Medium.ttf"),
         "Alegreya Sans Regular": require("../../../assets/fonts/AlegreyaSans Regular.ttf")
     })
+
+    const {setUser} = useContext(Context);
+
+
+    useEffect(() => {
+        (async function(){
+            let userInfo = await AsyncStorage.getItem("userInfo");
+            userInfo = JSON.parse(userInfo);
+            if (userInfo.email !== "") {
+                console.log(userInfo);
+                setUser(userInfo);
+                navigation.navigate("Router");
+            }
+        })();
+    }, [])
+    const isEntered = async () => {
+        let userInfo = await AsyncStorage.getItem("userInfo");
+        userInfo = JSON.parse(userInfo);
+        if (userInfo.email === null) {
+            console.log(userInfo);
+            return false
+        }
+        setUser(userInfo)
+        console.log(userInfo);
+        return true;
+    }
 
     return (
         <ImageBackground

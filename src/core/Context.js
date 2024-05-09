@@ -111,6 +111,7 @@ export const ContextProvider = ({children}) => {
         getQuotes,
         authorise,
         user,
+        setUser,
         isProfile,
         changeProfileState,
         exit

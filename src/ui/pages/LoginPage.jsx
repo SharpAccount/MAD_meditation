@@ -17,7 +17,6 @@ export const LoginPage = ({navigation}) => {
     })
 
     const {authorise, user} = useContext(Context);
-    console.log(user); // i must delete this...
 
     const styles = [style.paragraph, style.input, {color: "#BEC2C2", fontFamily: "Alegreya Sans Regular", padding: 7}];
 
@@ -28,6 +27,11 @@ export const LoginPage = ({navigation}) => {
     const [password, setPass] = useState("");
 
     useEffect(() => {
+        setEmail(user.email);
+    }, []);
+
+    useEffect(() => {
+
         setEmailStatus(style.input);
         setPassStatus(style.input);
     }, [email, password]);
