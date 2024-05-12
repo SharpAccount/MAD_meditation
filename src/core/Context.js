@@ -18,6 +18,13 @@ export const ContextProvider = ({children}) => {
         avatar: ""
     })
 
+    const [photos, setPhotos] = useState([
+        {id: 0, image: require("../../assets/photos/sunset.png"), postTime: `11:11`},
+        {id: 1, image: require("../../assets/photos/night.png"), postTime: `11:11`},
+        {id: 2, image: require("../../assets/photos/sunrise.png"), postTime: `11:11`},
+        {id: 3, image: require("../../assets/photos/fire.png"), postTime: `11:11`},
+    ])
+
     async function getFeelings() {
         try {
             const response = await fetch(URL + "feelings",
@@ -114,7 +121,9 @@ export const ContextProvider = ({children}) => {
         setUser,
         isProfile,
         changeProfileState,
-        exit
+        exit,
+        photos,
+        setPhotos
     }
 
     return (

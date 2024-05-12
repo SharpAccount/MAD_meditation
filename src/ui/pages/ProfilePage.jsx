@@ -1,6 +1,7 @@
-import {View, StyleSheet, Image} from "react-native";
+import {View, StyleSheet} from "react-native";
 import {useFonts} from "expo-font";
 import ProfileInfo from "../components/ProfileInfo";
+import Photos from "../components/Photos";
 
 export const ProfilePage = () => {
 
@@ -12,6 +13,7 @@ export const ProfilePage = () => {
         <View style={{width:"100%", height:"100%", backgroundColor:"#253334", alignItems:"center"}}>
             <View style={{width: "90%", alignItems: "center"}}>
                 <ProfileInfo/>
+                <Photos/>
             </View>
         </View>
     )
