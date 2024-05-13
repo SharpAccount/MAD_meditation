@@ -8,11 +8,14 @@ import Logo from "../components/logo";
 import Sound from "../components/Sound";
 import {useContext} from "react";
 import {Context} from "../../core/Context";
+import {useNavigation} from "@react-navigation/native";
 
 const Tab = createBottomTabNavigator();
 const BottomTabs = () => {
 
-    const {changeProfileState} = useContext(Context);
+    const {isProfile, changeProfileState} = useContext(Context);
+
+    const navigation = useNavigation();
 
     return (
         <Tab.Navigator

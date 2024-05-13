@@ -10,6 +10,7 @@ export const ContextProvider = ({children}) => {
     const [feelings, setFeelings] = useState([]);
     const [quotes, setQuotes] = useState([]);
     const [isProfile, changeProfileState] = useState(true);
+    const [isRouter, setIsRouter] = useState(true);
 
     const [user, setUser] = useState({
         email: "",
@@ -121,6 +122,8 @@ export const ContextProvider = ({children}) => {
         setUser,
         isProfile,
         changeProfileState,
+        isRouter,
+        setIsRouter,
         exit,
         photos,
         setPhotos

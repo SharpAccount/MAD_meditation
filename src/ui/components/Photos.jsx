@@ -1,7 +1,9 @@
-import React, {useContext} from 'react';
-import {FlatList, SafeAreaView, View, Text, Image, StyleSheet} from "react-native";
+import React, {useContext, useEffect} from 'react';
+import {FlatList, SafeAreaView, Text, Image, StyleSheet, Pressable} from "react-native";
 import {Context} from "../../core/Context";
 import {useFonts} from "expo-font";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import getTime from "../../utils/GetTime";
 
 const Photos = () => {
 
@@ -10,19 +12,37 @@ const Photos = () => {
     })
 
     const {photos, setPhotos} = useContext(Context);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const updatedPhotos = photos.map(photo => ({
+                ...photo,
+                postTime: getTime(),
+            }));
+            setPhotos(updatedPhotos);
+            await AsyncStorage.setItem('photos', JSON.stringify(updatedPhotos));
+            const storedData = await AsyncStorage.getItem('photos');
+            setPhotos(JSON.parse(storedData));
+            // if (storedData) {
+            // } else {
+            //
+            // }
+        };
+        fetchData();
+    }, []);
+
     return (
-        <SafeAreaView>
+        <SafeAreaView style={{marginTop: "5%"}}>
             <FlatList data={photos}
                       numColumns={2}
                       keyExtractor={(item, idx) => idx.toString()}
                       columnWrapperStyle={{gap: 20}}
                       renderItem={({item}) => {
-                          console.log(item)
                           return  (
-                                <View style={{marginBottom: 18}}>
+                                <Pressable style={{marginBottom: 18}}>
                                     <Image source={item.image} style={{borderRadius: 20, height: 115, width: 153}}/>
                                     <Text style={style.time}>{item.postTime}</Text>
-                                </View>
+                                </Pressable>
                               )
                       }}/>
         </SafeAreaView>

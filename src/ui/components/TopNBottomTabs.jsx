@@ -16,7 +16,7 @@ const TopNBottomTabs = ({navigation}) => {
         "Alegreya Sans Medium": require("../../../assets/fonts/AlegreyaSans Medium.ttf")
     })
 
-    const {isProfile, changeProfileState, user, exit} = useContext(Context);
+    const {isProfile, setIsRouter, isRouter, user, exit} = useContext(Context);
 
     return (
         <TopTab.Navigator
@@ -37,7 +37,7 @@ const TopNBottomTabs = ({navigation}) => {
                 tabBarLabel: () => null,
             }} listeners={{
                 tabPress: () => {
-                    changeProfileState(false)
+                    setIsRouter(false)
                 }
             }}>
 
@@ -55,20 +55,20 @@ const TopNBottomTabs = ({navigation}) => {
             }}/>
             <TopTab.Screen name="exit" component={BottomTabs} options={{
                 tabBarLabel: () => (
-                    isProfile
+                    isProfile && isRouter
                         ? <Text style={{color: "white", position: "absolute", bottom: 10}}>exit</Text>
                         : null
                 ),
                 tabBarIcon: () => (
-                    isProfile
+                    isProfile && isRouter
                         ? null
                         : <Image source={{uri: user.avatar}} style={{width: 36, height: 36, borderRadius: 18}}></Image>
                 )
             }}
             listeners={{
                 tabPress: () => {
-                    changeProfileState(true);
-                    if (isProfile) {
+                    setIsRouter(true);
+                    if (isProfile && isRouter) {
                         exit();
                         navigation.navigate("Login");
                     }
