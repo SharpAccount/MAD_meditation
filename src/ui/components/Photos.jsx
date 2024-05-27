@@ -5,7 +5,7 @@ import {useFonts} from "expo-font";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import getTime from "../../utils/GetTime";
 import Plus from "./Plus";
-import * as ImagePicker from "react-native-image-picker";
+import * as ImagePicker from "expo-image-picker";
 
 const Photos = ({navigation}) => {
 
@@ -17,10 +17,14 @@ const Photos = ({navigation}) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const updatedPhotos = photos.map(photo => ({
-                ...photo,
-                postTime: getTime(),
-            }));
+            const updatedPhotos = updatePhotos();
+            if (updatedPhotos[updatedPhotos.length-1].postTime !== null) {
+                updatedPhotos[updatedPhotos.length-1].postTime = ({
+                    id: updatedPhotos.length,
+                    image: null,
+                    postTime: null
+                });
+            }
             setPhotos(updatedPhotos);
             await AsyncStorage.setItem('photos', JSON.stringify(updatedPhotos));
         };
@@ -35,29 +39,35 @@ const Photos = ({navigation}) => {
         fetchData();
     }, [photos])
 
-
-    const pickImage = async() => {
-        await ImagePicker.launchImageLibrary(
-            {
-                mediaType: 'photo'
-            },
-            response => {
-                if (response.didCancel) {
-                    console.log('Пользователь отменил выбор изображения');
-                } else if (response.error) {
-                    console.log('Ошибка при выборе изображения:', response.error);
-                } else {
-                    console.log('Выбранное изображение:', response);
-                    const chosenPhoto = {
-                        id: photos[photos.length-1].id,
-                        Image: response,
-                        postTime: getTime()
-                    }
-                    setPhotos([...photos, chosenPhoto]);
-                }
-            }
-        );
+    const updatePhotos = () => {
+        return photos.map(photo => ({
+            ...photo,
+            postTime: getTime(),
+        }));
     }
+
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            allowsEditing: true,
+            quality: 1,
+        });
+
+        if (!result.canceled) {
+            //it`ll be fixed
+            // const plusButton = photos[photos.length-1];
+            // const postTime = getTime();
+            // const updatedPhotos = photos;
+            // updatedPhotos[updatedPhotos.length-1] = {
+            //     id: updatedPhotos.length,
+            //     image: result.assets[0].uri,
+            //     postTime: postTime,
+            // }
+            // updatedPhotos.push(plusButton);
+            // setPhotos(updatedPhotos);
+            // await AsyncStorage.setItem('photos', JSON.stringify(updatedPhotos));
+        }
+    };
+
     const AddButton = () => {
         return (
             <Pressable style={{width: 153, height: 115, backgroundColor: "#6AAE72", display: "flex", justifyContent: "center", alignItems: "center", borderRadius: 20}}
@@ -75,13 +85,25 @@ const Photos = ({navigation}) => {
                 numColumns={2}
                 keyExtractor={(item, idx) => idx.toString()}
                 columnWrapperStyle={{ gap: 20 }}
-                ListFooterComponent={AddButton}
                 renderItem={({ item }) => {
-                    return (
-                        <Pressable style={{ marginBottom: 18 }} onPress={() => navigation.navigate("Photo", { imageId: item.id })}>
+                    const isLastItem = item.id === (photos.length - 1);
+
+                    const button = isLastItem ? (
+                        <Pressable style={{width: 153, height: 115, backgroundColor: "#6AAE72", display: "flex", justifyContent: "center", alignItems: "center", borderRadius: 20}}
+                                   onPress={pickImage}>
+                            <Plus/>
+                        </Pressable>
+                    ) : (
+                        <Pressable
+                            style={{ marginBottom: 18 }}
+                            onPress={isLastItem ? pickImage : () => navigation.navigate('Photo', { imageId: item.id })}>
                             <Image source={item.image} style={{ borderRadius: 20, height: 115, width: 153 }} />
                             <Text style={style.time}>{item.postTime}</Text>
                         </Pressable>
+                    )
+
+                    return (
+                        <>{button}</>
                     );
                 }}
             />

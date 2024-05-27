@@ -3,7 +3,6 @@ import {Image, Pressable, Text, View, StyleSheet} from "react-native";
 import {Context} from "../../core/Context";
 import {useFonts} from "expo-font";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {ImageViewer} from "react-native-image-zoom-viewer";
 
 const PhotoPage = (props) => {
 

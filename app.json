@@ -31,6 +31,7 @@
         {
           "fonts": ["./assets/fonts/Alegreya Medium.ttf", "./assets/fonts/Alegreya Regular.ttf", "./assets/fonts/AlegreyaSans Medium.ttf"]
         }
+
       ]
     ]
   }
