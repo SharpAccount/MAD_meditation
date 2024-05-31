@@ -8,7 +8,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const OnBoarding = ({navigation}) => {
     const [fontLoaded] = useFonts({
         "Alegreya Regular": require("../../../assets/fonts/Alegreya Regular.ttf"),
-        "Alegreya Medium": require("../../../assets/fonts/Alegreya Medium.ttf"),
+        "Alegreya Medium": require("../../../assets/fonts/Alegreya-Medium.ttf"),
         "Alegreya Sans Medium": require("../../../assets/fonts/AlegreyaSans Medium.ttf"),
         "Alegreya Sans Regular": require("../../../assets/fonts/AlegreyaSans Regular.ttf")
     })

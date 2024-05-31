@@ -7,7 +7,7 @@ import {useRoute} from "@react-navigation/native";
 export const MenuPage = () => {
 
     const [fontLoaded] = useFonts({
-        "Alegreya Medium": require("../../../assets/fonts/Alegreya Medium.ttf")
+        "Alegreya Medium": require("../../../assets/fonts/Alegreya-Medium.ttf")
     })
 
     return (

@@ -1,13 +1,10 @@
 import {useFonts} from "expo-font";
 import {View, Text} from "react-native";
-import {useContext} from "react";
-import {Context} from "../../core/Context";
-import {useRoute} from "@react-navigation/native";
 
 export const ListeningPage = () => {
 
     const [fontLoaded] = useFonts({
-        "Alegreya Medium": require("../../../assets/fonts/Alegreya Medium.ttf")
+        "Alegreya Medium": require("../../../assets/fonts/Alegreya-Medium.ttf")
     });
 
     return (

@@ -11,14 +11,15 @@ const PhotoPage = (props) => {
     })
 
     const deletePhoto = async () => {
+
         let updatedPhotos = photos.filter(el => el.id !== imageId);
+
         updatedPhotos = updatedPhotos.map((photo, index) => {
-            photo.id = index;
+            return { ...photo, id: index }; // Создаем новый объект с обновленным id
         });
-        console.log(updatedPhotos,"\n", photos)
         setPhotos(updatedPhotos);
         props.navigation.goBack();
-        await AsyncStorage.setItem("photos", JSON.stringify(photos));
+        await AsyncStorage.setItem("photos", JSON.stringify(updatedPhotos));
     }
 
     const {imageId} = props.route.params;

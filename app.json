@@ -29,7 +29,7 @@
       [
         "expo-font",
         {
-          "fonts": ["./assets/fonts/Alegreya Medium.ttf", "./assets/fonts/Alegreya Regular.ttf", "./assets/fonts/AlegreyaSans Medium.ttf"]
+          "fonts": ["./assets/fonts/Alegreya_Medium.ttf", "./assets/fonts/Alegreya Regular.ttf", "./assets/fonts/AlegreyaSans Medium.ttf"]
         }
 
       ]

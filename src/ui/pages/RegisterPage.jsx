@@ -5,7 +5,7 @@ import {useFonts} from "expo-font";
 const RegisterPage = () => {
 
     const [fontLoaded] = useFonts({
-        "Alegreya Medium": require("../../../assets/fonts/Alegreya Medium.ttf")
+        "Alegreya Medium": require("../../../assets/fonts/Alegreya-Medium.ttf")
     })
 
     return (

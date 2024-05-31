@@ -9,11 +9,10 @@ import * as ImagePicker from "expo-image-picker";
 
 const Photos = ({ navigation }) => {
     const [fontLoaded] = useFonts({
-        "Alegreya Sans Medium": require("../../../assets/fonts/AlegreyaSans Medium.ttf")
+        "Alegreya Sans Medium": require("../../../assets/fonts/Alegreya Regular.ttf")
     });
 
     const { photos, setPhotos } = useContext(Context);
-     // console.log(photos);
 
     useEffect(() => {
         const fetchData = async () => {

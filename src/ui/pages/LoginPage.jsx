@@ -11,7 +11,7 @@ export const LoginPage = ({navigation}) => {
     const windowHeight = Dimensions.get("window").height;
 
     const [fontLoaded] = useFonts({
-        "Alegreya Medium": require("../../../assets/fonts/Alegreya Medium.ttf"),
+        "Alegreya Medium": require("../../../assets/fonts/Alegreya-Medium.ttf"),
         "Alegreya Regular": require("../../../assets/fonts/Alegreya Regular.ttf"),
         "Alegreya Sans Medium": require("../../../assets/fonts/AlegreyaSans Medium.ttf"),
         "Alegreya Sans Regular": require("../../../assets/fonts/AlegreyaSans Regular.ttf")
