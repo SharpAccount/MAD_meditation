@@ -20,8 +20,7 @@ const OnBoarding = ({navigation}) => {
         (async function(){
             let userInfo = await AsyncStorage.getItem("userInfo");
             userInfo = JSON.parse(userInfo);
-            if (userInfo.email !== "") {
-                console.log(userInfo);
+            if (userInfo.email !== "" && userInfo.id !== "") {
                 setUser(userInfo);
                 navigation.navigate("Router");
             }

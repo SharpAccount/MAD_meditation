@@ -98,13 +98,13 @@ export const ContextProvider = ({children}) => {
 
     async function exit() {
         await AsyncStorage.setItem("userInfo", JSON.stringify({
-            email: "",
+            email: user.email,
             name: "",
             id: "",
             avatar: ""
         }))
         setUser({
-            email: "",
+            email: user.email,
             name: "",
             id: "",
             avatar: ""

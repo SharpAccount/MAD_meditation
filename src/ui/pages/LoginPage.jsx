@@ -4,6 +4,7 @@ import Logo from "../components/logo";
 import { useContext, useEffect, useState } from "react";
 import { Context } from "../../core/Context";
 import { Leaves } from "../components/Leaves";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const LoginPage = ({navigation}) => {
 
@@ -27,7 +28,16 @@ export const LoginPage = ({navigation}) => {
     const [password, setPass] = useState("");
 
     useEffect(() => {
-        setEmail(user.email);
+            async function fetchEmail() {
+                let userInfo = await AsyncStorage.getItem("userInfo");
+                userInfo = JSON.parse(userInfo);
+                if (userInfo.email !== "") {
+                    setEmail(userInfo.email)
+                } else {
+                    setEmail(user.email);
+                }
+        }
+        fetchEmail();
     }, []);
 
     useEffect(() => {

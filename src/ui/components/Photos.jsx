@@ -1,50 +1,43 @@
-import React, {useContext, useEffect} from 'react';
-import {FlatList, SafeAreaView, Text, Image, StyleSheet, Pressable} from "react-native";
-import {Context} from "../../core/Context";
-import {useFonts} from "expo-font";
+import React, { useContext, useEffect } from 'react';
+import { FlatList, SafeAreaView, Text, Image, StyleSheet, Pressable } from "react-native";
+import { Context } from "../../core/Context";
+import { useFonts } from "expo-font";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import getTime from "../../utils/GetTime";
 import Plus from "./Plus";
 import * as ImagePicker from "expo-image-picker";
 
-const Photos = ({navigation}) => {
-
+const Photos = ({ navigation }) => {
     const [fontLoaded] = useFonts({
         "Alegreya Sans Medium": require("../../../assets/fonts/AlegreyaSans Medium.ttf")
-    })
+    });
 
-    const {photos, setPhotos} = useContext(Context);
+    const { photos, setPhotos } = useContext(Context);
+     // console.log(photos);
 
     useEffect(() => {
         const fetchData = async () => {
-            const updatedPhotos = updatePhotos();
-            if (updatedPhotos[updatedPhotos.length-1].postTime !== null) {
-                updatedPhotos[updatedPhotos.length-1].postTime = ({
-                    id: updatedPhotos.length,
-                    image: null,
-                    postTime: null
-                });
+            const storedPhotos = await AsyncStorage.getItem('photos');
+            if (storedPhotos.length > 1) {
+                setPhotos(JSON.parse(storedPhotos));
+            } else {
+                const initialPhotos = [
+                    { id: 0, image: require("../../../assets/photos/sunset.png"), postTime: getTime() },
+                    { id: 1, image: require("../../../assets/photos/night.png"), postTime: getTime() },
+                    { id: 2, image: require("../../../assets/photos/sunrise.png"), postTime: getTime() },
+                    { id: 3, image: require("../../../assets/photos/fire.png"), postTime: getTime() },
+                    { id: 4, image: null, postTime: null }
+                ];
+                setPhotos(initialPhotos);
+                await AsyncStorage.setItem('photos', JSON.stringify(initialPhotos));
             }
-            setPhotos(updatedPhotos);
-            await AsyncStorage.setItem('photos', JSON.stringify(updatedPhotos));
         };
         fetchData();
     }, []);
 
     useEffect(() => {
-        const fetchData = async() => {
-            const storedPhotos = await AsyncStorage.getItem('photos');
-            setPhotos(JSON.parse(storedPhotos));
-        }
-        fetchData();
+        (async() => { setPhotos(JSON.parse(await AsyncStorage.getItem('photos')));})();
     }, [photos])
-
-    const updatePhotos = () => {
-        return photos.map(photo => ({
-            ...photo,
-            postTime: getTime(),
-        }));
-    }
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -53,65 +46,80 @@ const Photos = ({navigation}) => {
         });
 
         if (!result.canceled) {
-            //it`ll be fixed
-            // const plusButton = photos[photos.length-1];
-            // const postTime = getTime();
-            // const updatedPhotos = photos;
-            // updatedPhotos[updatedPhotos.length-1] = {
-            //     id: updatedPhotos.length,
-            //     image: result.assets[0].uri,
-            //     postTime: postTime,
-            // }
-            // updatedPhotos.push(plusButton);
-            // setPhotos(updatedPhotos);
-            // await AsyncStorage.setItem('photos', JSON.stringify(updatedPhotos));
+            const postTime = getTime();
+            const updatedPhotos = [...photos];
+            let plusButton = updatedPhotos.pop();
+            updatedPhotos.push({
+                id: updatedPhotos.length,
+                image: {uri: result.assets[0].uri },
+                postTime: postTime,
+            });
+            plusButton.id = updatedPhotos.length;
+            updatedPhotos.push(plusButton);
+            setPhotos(updatedPhotos);
+            await AsyncStorage.setItem('photos', JSON.stringify(updatedPhotos));
         }
     };
 
-    const AddButton = () => {
+    const renderItem = ({ item, index }) => {
+        const isLastItem = index === photos.length - 1;
+
         return (
-            <Pressable style={{width: 153, height: 115, backgroundColor: "#6AAE72", display: "flex", justifyContent: "center", alignItems: "center", borderRadius: 20}}
-                        onPress={pickImage}>
-                <Plus/>
+            <Pressable
+                style={isLastItem ? styles.plusButton : styles.photoButton}
+                onPress={isLastItem ? pickImage : () => navigation.navigate('Photo', { imageId: item.id })}
+            >
+                {isLastItem ? (
+                    <Plus />
+                ) : (
+                    <>
+                        <Image source={item.image} style={styles.image} />
+                        <Text style={styles.time}>{item.postTime}</Text>
+                    </>
+                )}
             </Pressable>
         );
     };
-
     return (
-        <SafeAreaView style={{ marginTop: "5%", height: "60%" }}>
+        <SafeAreaView style={styles.container}>
             <FlatList
                 data={photos}
                 scrollEnabled={true}
                 numColumns={2}
                 keyExtractor={(item, idx) => idx.toString()}
-                columnWrapperStyle={{ gap: 20 }}
-                renderItem={({ item }) => {
-                    const isLastItem = item.id === (photos.length - 1);
-
-                    const button = isLastItem ? (
-                        <Pressable style={{width: 153, height: 115, backgroundColor: "#6AAE72", display: "flex", justifyContent: "center", alignItems: "center", borderRadius: 20}}
-                                   onPress={pickImage}>
-                            <Plus/>
-                        </Pressable>
-                    ) : (
-                        <Pressable
-                            style={{ marginBottom: 18 }}
-                            onPress={isLastItem ? pickImage : () => navigation.navigate('Photo', { imageId: item.id })}>
-                            <Image source={item.image} style={{ borderRadius: 20, height: 115, width: 153 }} />
-                            <Text style={style.time}>{item.postTime}</Text>
-                        </Pressable>
-                    )
-
-                    return (
-                        <>{button}</>
-                    );
-                }}
+                columnWrapperStyle={styles.columnWrapper}
+                renderItem={renderItem}
             />
         </SafeAreaView>
     );
 };
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
+    container: {
+        marginTop: "5%",
+        height: "60%",
+    },
+    columnWrapper: {
+        gap: 20,
+    },
+    photoButton: {
+        marginBottom: 18,
+    },
+    plusButton: {
+        width: 153,
+        height: 115,
+        backgroundColor: "#6AAE72",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 20,
+        marginBottom: 18,
+    },
+    image: {
+        borderRadius: 20,
+        height: 115,
+        width: 153,
+    },
     time: {
         position: "absolute",
         bottom: 23,
@@ -119,7 +127,7 @@ const style = StyleSheet.create({
         color: "#fff",
         fontFamily: "Alegreya Sans Medium",
         fontSize: 18,
-    }
-})
+    },
+});
 
 export default Photos;

@@ -11,8 +11,12 @@ const PhotoPage = (props) => {
     })
 
     const deletePhoto = async () => {
-        setPhotos(photos.splice(imageId, 1));
-        console.log(photos);
+        let updatedPhotos = photos.filter(el => el.id !== imageId);
+        updatedPhotos = updatedPhotos.map((photo, index) => {
+            photo.id = index;
+        });
+        console.log(updatedPhotos,"\n", photos)
+        setPhotos(updatedPhotos);
         props.navigation.goBack();
         await AsyncStorage.setItem("photos", JSON.stringify(photos));
     }
@@ -23,7 +27,7 @@ const PhotoPage = (props) => {
 
     return (
         <View style={{ width: "100%", height: "100%", backgroundColor: "#253334", justifyContent: "center", alignItems: "center" }}>
-            <Image source={photos[imageId].image} style={{width: "100%", height: "100%", objectFit: "contain"}}/>
+            <Image source={ photos[imageId].image } style={{width: "100%", height: "100%", objectFit: "contain"}}/>
             <View style={{position: "absolute", bottom: "5%", display: "flex", flexDirection: "row", columnGap: 114}}>
                 <Pressable onPress={deletePhoto}>
                     <Text style={style.button}>удалить</Text>
